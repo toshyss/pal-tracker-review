@@ -4,7 +4,7 @@ applications:
     path: build/libs/pal-tracker-review.jar
 #    random-route: true
     routes:
-      - route: pal-tracker-review-toshyss.apps.chicken.pal.pivotal.io
+      - route: pal-tracker-review-toshyss.cfapps.io
     env:
 #      WELCOME_MESSAGE: Hello from Cloud Foundry
       WELCOME_MESSAGE: Hello from the review environment
