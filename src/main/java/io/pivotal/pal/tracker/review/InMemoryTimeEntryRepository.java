@@ -1,14 +1,30 @@
 package io.pivotal.pal.tracker.review;
 
+import java.util.HashMap;
+
 public class InMemoryTimeEntryRepository implements TimeEntryRepository {
+    private HashMap<Long, TimeEntry> timeEntries = new HashMap<>();
+    private long currentId = 1L;
 
-    private long projectId;
-    private long userId;
+    public TimeEntry create(TimeEntry timeEntry) {
 
-    public void create() {
+        long id = currentId++;
 
-        this.projectId = projectId;
-        this.userId = userId;
+        TimeEntry newTimeEntry = new TimeEntry(
+                id,
+                timeEntry.getProjectId(),
+                timeEntry.getUserId(),
+                timeEntry.getDate(),
+                timeEntry.getHours()
+        );
 
+        timeEntries.put(id, newTimeEntry);
+        return newTimeEntry;
+    }
+
+    public TimeEntry find(long id) {
+
+        TimeEntry getTimeEntry = timeEntries.get(id);
+        return getTimeEntry;
     }
 }
