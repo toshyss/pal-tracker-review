@@ -4,4 +4,5 @@ import org.apache.tomcat.jni.Time;
 
 public interface TimeEntryRepository {
     TimeEntry create(TimeEntry timeEntry);
+    TimeEntry find(Long id);
 }
