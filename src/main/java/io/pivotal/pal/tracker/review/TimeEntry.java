@@ -3,6 +3,7 @@ package io.pivotal.pal.tracker.review;
 import org.apache.tomcat.jni.Time;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class TimeEntry {
 
@@ -69,5 +70,33 @@ public class TimeEntry {
 
     public void setHours(int hours) {
         this.hours = hours;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TimeEntry timeEntry = (TimeEntry) o;
+        return id == timeEntry.id &&
+                projectId == timeEntry.projectId &&
+                userId == timeEntry.userId &&
+                hours == timeEntry.hours &&
+                Objects.equals(date, timeEntry.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, projectId, userId, date, hours);
+    }
+
+    @Override
+    public String toString() {
+        return "TimeEntry{" +
+                "id=" + id +
+                ", projectId=" + projectId +
+                ", userId=" + userId +
+                ", date=" + date +
+                ", hours=" + hours +
+                '}';
     }
 }
