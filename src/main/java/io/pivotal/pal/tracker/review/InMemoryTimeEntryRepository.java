@@ -40,6 +40,10 @@ public class InMemoryTimeEntryRepository implements TimeEntryRepository {
 
     @Override
     public TimeEntry update(Long id, TimeEntry timeEntry) {
+        if (find(id) == null) {
+            return null;
+        }
+
         TimeEntry updatedTimeEntry = new TimeEntry(
                 id,
                 timeEntry.getProjectId(),
