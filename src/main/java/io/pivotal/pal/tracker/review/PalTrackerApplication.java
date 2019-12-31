@@ -8,11 +8,13 @@ import org.springframework.context.annotation.Bean;
 import javax.sql.DataSource;
 import javax.swing.*;
 import java.sql.Time;
+import java.util.TimeZone;
 
 @SpringBootApplication
 public class PalTrackerApplication {
 
     public static void main(String[] args) {
+//        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         SpringApplication.run(PalTrackerApplication.class, args);
     }
 

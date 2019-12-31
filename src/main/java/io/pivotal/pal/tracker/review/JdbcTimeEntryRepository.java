@@ -25,7 +25,7 @@ public class JdbcTimeEntryRepository implements TimeEntryRepository {
     public TimeEntry create(TimeEntry timeEntry) {
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
 
-        String sqlStatement = "INSERT INTO time_entries (project_id, user_id, data, hours VALUES (?, ?, ?, ?)";
+        String sqlStatement = "INSERT INTO time_entries (project_id, user_id, date, hours) VALUES (?, ?, ?, ?)";
 
         jdbcTemplate.update(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(
@@ -47,7 +47,7 @@ public class JdbcTimeEntryRepository implements TimeEntryRepository {
     @Override
     public TimeEntry find(Long id) {
         return jdbcTemplate.query(
-                "SELECT id, project_id, date, hours FROM time_entries WHERE id = ?",
+                "SELECT id, project_id, user_id, date, hours FROM time_entries WHERE id = ?",
                 new Object[]{id},
                 extractor
         );
@@ -55,13 +55,13 @@ public class JdbcTimeEntryRepository implements TimeEntryRepository {
 
     @Override
     public List<TimeEntry> list() {
-        return jdbcTemplate.query("SELECT id, project_id, user.id, date, hours FROM time_entries", mapper);
+        return jdbcTemplate.query("SELECT id, project_id, user_id, date, hours FROM time_entries", mapper);
     }
 
     @Override
     public TimeEntry update(Long id, TimeEntry timeEntry) {
         jdbcTemplate.update("UPDATE time_entries " +
-                "SET project_id = ?, user_id = ?, date = ?, hours = ?" +
+                "SET project_id = ?, user_id = ?, date = ?, hours = ? " +
                 "WHERE id = ?",
                 timeEntry.getProjectId(),
                 timeEntry.getUserId(),
